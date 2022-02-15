@@ -12,4 +12,3 @@ events:
   - http:
       method: 'DELETE'
       path: /notes/{id}
-      private: true

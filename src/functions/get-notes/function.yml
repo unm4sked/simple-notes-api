@@ -11,4 +11,3 @@ events:
   - http:
       method: 'GET'
       path: /notes
-      private: true

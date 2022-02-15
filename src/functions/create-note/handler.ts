@@ -13,9 +13,11 @@ import { validateCreateNoteBody } from "./event-validation";
 const logger = pino();
 
 export const handler = wrapApiGatewayHandler(async (event: APIGatewayProxyEvent, _context: Context) => {
-  const payload = await validateCreateNoteBody(event.body)
+  const payload = await validateCreateNoteBody(event.body);
 
   const config = await initDefaultConfig();
+
+  return apiSuccess(StatusCodes.CREATED, payload);
 
   const service = new NotesService(
     new NotesRepository(new DynamoDBClient({ region: config.region }), config.ddbTableName),
