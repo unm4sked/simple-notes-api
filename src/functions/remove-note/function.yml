@@ -1,0 +1,15 @@
+name: "${self:custom.prefix}-remove-note"
+handler: src/functions/remove-note/handler.handler
+description: "Deletes the queue ahead of time"
+iamRoleStatementsInherit: true
+iamRoleStatements:
+  - Effect: "Allow"
+    Action:
+      - dynamodb:GetItem
+      - dynamodb:DeleteItem
+    Resource: !GetAtt notesTable.Arn      
+events:
+  - http:
+      method: 'DELETE'
+      path: /notes/{id}
+      private: true

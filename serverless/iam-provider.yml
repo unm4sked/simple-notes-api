@@ -1,0 +1,14 @@
+statements:
+  - Sid: AllowLoggingToCloudWatch
+    Effect: "Allow"
+    Action:
+      - logs:CreateLogGroup
+      - logs:CreateLogStream
+      - logs:PutLogEvents
+    Resource: "*"
+  - Sid: AllowTracingToXRay
+    Effect: "Allow"
+    Action:
+      - xray:PutTelemetryRecords
+      - xray:PutTraceSegments
+    Resource: "*"

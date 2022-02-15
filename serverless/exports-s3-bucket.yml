@@ -1,0 +1,6 @@
+Resources:
+  notesExportsBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: ${self:custom.exportS3}
+      AccessControl: Private

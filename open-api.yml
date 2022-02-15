@@ -1,0 +1,118 @@
+openapi: "3.0.1"
+info:
+  title: "dev-simple-notes-v1"
+  version: "1.0"
+  context:
+    name: "Lukasz Kalicki"
+servers:
+- url: "https://URL_AFTER_DEPLOY/{basePath}"
+  description: development
+  variables:
+    basePath:
+      default: "/dev"
+paths:
+  /notes:
+    get:
+      summary: List of notes with flatten structure
+    post:
+      summary: Create new encrypted note
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                text:
+                  type: string
+                password:
+                  type: string
+                expirationDate: 
+                  type: string #ISO DateTime
+                  format: date-time
+              required:
+                - title
+                - text
+                - password
+            example:
+              title: My awesome note
+              text: Some awesome content here
+              password: 123XD!
+              expirationDate: "2023-02-10T00:00:00.000Z"
+  /notes/{id}:
+    get:
+      parameters:
+      - name: "id"
+        in: "path"
+        required: true
+        schema:
+          type: "string"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: 
+                  id:
+                    type: string
+                  title:
+                    type: string
+                  expirationDate:
+                    type: string
+                    format: date-time
+                  updatedAt:
+                    type: string
+                    format: date-time
+                  createdAt:
+                    type: string
+                    format: date-time
+      security:
+      - password: []
+    delete:
+      parameters:
+      - name: "id"
+        in: "path"
+        required: true
+        schema:
+          type: "string"
+      security:
+      - password: []
+    patch:
+      parameters:
+      - name: "id"
+        in: "path"
+        required: true
+        schema:
+          type: "string"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: 
+                newPassword:
+                  type: string
+            required:
+                - newPassword
+      security:
+      - password: []
+  /notes/{id}/markdown:
+    post:
+      parameters:
+      - name: "id"
+        in: "path"
+        required: true
+        schema:
+          type: "string"
+      security:
+      - password: []
+components:
+  securitySchemes:
+    password:
+      type: "password"
+      name: "authorization"
+      in: "header"
+    

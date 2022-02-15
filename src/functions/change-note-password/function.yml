@@ -1,0 +1,15 @@
+name: "${self:custom.prefix}-change-note-password"
+handler: src/functions/change-note-password/handler.handler
+description: "Changes the password for an existing note"
+iamRoleStatementsInherit: true
+iamRoleStatements:
+  - Effect: "Allow"
+    Action:
+      - dynamodb:GetItem
+      - dynamodb:UpdateItem
+    Resource: !GetAtt notesTable.Arn      
+events:
+  - http:
+      method: 'PATCH'
+      path: /notes/{id}
+      private: true

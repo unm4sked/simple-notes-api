@@ -1,0 +1,14 @@
+name: "${self:custom.prefix}-create-note"
+handler: src/functions/create-note/handler.handler
+description: "Creates a note in a dynamoDB table"
+iamRoleStatementsInherit: true
+iamRoleStatements:
+  - Effect: "Allow"
+    Action:
+      - dynamodb:PutItem
+    Resource: !GetAtt notesTable.Arn      
+events:
+  - http:
+      method: 'POST'
+      path: /notes
+      private: true

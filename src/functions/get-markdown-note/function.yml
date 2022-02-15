@@ -1,0 +1,22 @@
+name: "${self:custom.prefix}-get-markdown-note"
+handler: src/functions/get-markdown-note/handler.handler
+description: "Returns a url to a note in the form of a markdown"
+iamRoleStatementsInherit: true
+iamRoleStatements:
+  - Effect: "Allow"
+    Action:
+      - dynamodb:GetItem
+    Resource: !GetAtt notesTable.Arn
+  - Effect: "Allow"
+    Action:
+      - s3:PutObject
+      - s3:GetObject
+    Resource: 
+      - !GetAtt notesExportsBucket.Arn
+      - !Join ["",[{"Fn::GetAtt" : [ "notesExportsBucket" , "Arn" ]},"/*"]]
+      
+events:
+  - http:
+      method: 'POST'
+      path: /notes/{id}/markdown
+      private: true

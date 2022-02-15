@@ -1,0 +1,14 @@
+name: "${self:custom.prefix}-get-notes"
+handler: src/functions/get-notes/handler.handler
+description: "Retrieves the flat structure of the note list"
+iamRoleStatementsInherit: true
+iamRoleStatements:
+  - Effect: "Allow"
+    Action:
+      - dynamodb:Scan
+    Resource: !GetAtt notesTable.Arn
+events:
+  - http:
+      method: 'GET'
+      path: /notes
+      private: true

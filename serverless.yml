@@ -1,0 +1,55 @@
+service: simple-notes-v1
+
+useDotenv: true
+frameworkVersion: ">=2.0.0"
+
+plugins:
+  - serverless-iam-roles-per-function
+  - serverless-webpack
+  - serverless-offline
+
+package:
+  individually: true
+
+custom: ${file(./serverless/custom.yml)}
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  region: ${opt:region, 'eu-west-1'}
+  stage: ${opt:stage, 'dev'}
+  profile: node
+  memorySize: 256
+  timeout: 5
+  logRetentionInDays: 14
+  tracing:
+    apiGateway: true
+    lambda: true
+  environment:
+    DOMAIN: ${self:custom.domain}
+    SERVICE: ${self:custom.service}
+    STAGE: ${self:provider.stage}
+    ENV: ${self:custom.env}
+    AWS_NODEJS_CONNECTION_REUSE_ENABLED: 1
+    EXPORTS_S3_BUCKET: ${self:custom.exportS3}
+    REGION: ${self:provider.region}
+    NOTES_TABLE: ${self:custom.notesDDB}
+  apiGateway:
+    apiKeys: ${self.service}-api-key
+  iam:
+    role:
+      statements: ${file(serverless/iam-provider.yml):statements}
+
+
+functions:
+  create-note: ${file(src/functions/create-note/function.yml)}
+  get-note: ${file(src/functions/get-note/function.yml)}
+  get-notes: ${file(src/functions/get-notes/function.yml)}
+  remove-note: ${file(src/functions/remove-note/function.yml)}
+  change-note-password: ${file(src/functions/change-note-password/function.yml)}
+  get-markdown-note: ${file(src/functions/get-markdown-note/function.yml)}
+
+resources:
+  - ${file(serverless/exports-s3-bucket.yml)}
+  - ${file(serverless/notes-dynamodb.yml)}
+

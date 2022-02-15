@@ -1,0 +1,10 @@
+  domain: test
+  service: ${self:service}
+  stage: ${self:provider.stage}
+  env: ${env:ENV}
+  prefix: ${self:custom.service}-${self:provider.stage}
+  webpack:
+    webpackConfig: "webpack.config.js"
+    packager: "npm"
+  exportS3: simple-lk-s3-bucket-23l4m239fx-${self:provider.stage}
+  notesDDB: simple-lk-table

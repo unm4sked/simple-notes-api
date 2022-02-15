@@ -1,0 +1,14 @@
+name: "${self:custom.prefix}get-note"
+handler: src/functions/get-note/handler.handler
+description: "Retrieves one full note"
+iamRoleStatementsInherit: true
+iamRoleStatements:
+  - Effect: "Allow"
+    Action:
+      - dynamodb:GetItem
+    Resource: !GetAtt notesTable.Arn      
+events:
+  - http:
+      method: 'GET'
+      path: /notes/{id}
+      private: true

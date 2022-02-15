@@ -1,0 +1,8 @@
+.DS_Store
+node_modules
+.serverless
+.env
+.build
+.webpack
+.esbuild
+.idea

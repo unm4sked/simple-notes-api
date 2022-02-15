@@ -1,0 +1,74 @@
+name: "check-code"
+
+on:
+  push:
+    # Do not run on default branches
+    branches-ignore:
+      - main
+      - master
+    # Do not run on release-tag
+    tags-ignore:
+      - "v*"
+  workflow_dispatch:
+
+
+jobs:
+  audit:
+    name: audit nodejs
+    runs-on: ubuntu-latest
+    continue-on-error: true
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup Node.js (v14)...
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+          registry-url: "https://npm.pkg.github.com/"
+
+      - name: Install dependencies...
+        run: npm install --ignore-scripts
+
+      - name: Run security audit...
+        run: npm audit --production
+
+  check-types:
+    name: check types
+    runs-on: ubuntu-latest
+    continue-on-error: true
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup Node.js (v14)...
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+          registry-url: "https://npm.pkg.github.com/"
+
+      - name: Install dependencies...
+        run: npm install --ignore-scripts
+
+      - name: Run checking types...
+        run: npm run check-types
+
+  test:
+    name: unit tests
+    runs-on: ubuntu-latest
+    continue-on-error: true
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup Node.js (v14)...
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+          registry-url: "https://npm.pkg.github.com/"
+
+      - name: Install dependencies...
+        run: npm install --ignore-scripts
+
+      - name: Run (unit) tests...
+        run: npm run test
