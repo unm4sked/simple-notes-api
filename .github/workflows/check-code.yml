@@ -2,10 +2,8 @@ name: "check-code"
 
 on:
   push:
-    # Do not run on default branches
-    branches-ignore:
+    branches:
       - main
-      - master
     # Do not run on release-tag
     tags-ignore:
       - "v*"
