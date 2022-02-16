@@ -31,6 +31,13 @@ export class NotesRepository implements INotesRepository {
       new ScanCommand({
         TableName: this.tableName,
         ProjectionExpression: "id, createdAt, title",
+        FilterExpression: "#ttl >= :now",
+        ExpressionAttributeValues: {
+          ":now": { N: (DateTime.now().toMillis() / 1000).toString() },
+        },
+        ExpressionAttributeNames: {
+          "#ttl": "ttl",
+        },
       }),
     );
 
@@ -50,7 +57,7 @@ export class NotesRepository implements INotesRepository {
         expirationDate: { S: entity.expirationDate },
         createdAt: { S: entity.createdAt },
         updatedAt: { S: entity.updatedAt },
-        ttl: { N: DateTime.fromISO(entity.expirationDate).toMillis().toString() },
+        ttl: { N: (DateTime.fromISO(entity.expirationDate).toMillis() / 1000).toString() },
       },
     };
 

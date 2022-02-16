@@ -17,6 +17,6 @@ iamRoleStatements:
       
 events:
   - http:
-      method: 'POST'
+      method: 'GET'
       path: /notes/{id}/markdown
       cors: true

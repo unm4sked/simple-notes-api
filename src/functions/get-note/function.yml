@@ -1,4 +1,4 @@
-name: "${self:custom.prefix}get-note"
+name: "${self:custom.prefix}-get-note"
 handler: src/functions/get-note/handler.handler
 description: "Retrieves one full note"
 iamRoleStatementsInherit: true

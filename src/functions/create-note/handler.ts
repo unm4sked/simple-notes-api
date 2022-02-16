@@ -14,7 +14,6 @@ const logger = pino();
 
 export const handler = wrapApiGatewayHandler(async (event: APIGatewayProxyEvent, _context: Context) => {
   const payload = await validateCreateNoteBody(event.body);
-
   const config = await initDefaultConfig();
 
   const service = new NotesService(

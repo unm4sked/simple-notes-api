@@ -15,7 +15,7 @@ const logger = pino();
 
 export const handler = wrapApiGatewayHandler(async (event: APIGatewayProxyEvent, _context: Context) => {
   const payload = await validateChangePasswordBody(event.body);
-  const password = await validateAuthorizationHeader(event.headers?.authorization);
+  const password = await validateAuthorizationHeader(event.headers.Authorization);
   const config = await initDefaultConfig();
 
   const service = new NotesService(

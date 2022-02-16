@@ -45,7 +45,9 @@ export class NotesService {
   }
 
   async createNote(note: NoteDto): Promise<string> {
-    const expirationDate = note.expirationDate ?? DateTime.now().plus({ years: 3 }).toISO();
+    const expirationDate = note.expirationDate
+      ? DateTime.fromJSDate(new Date(note.expirationDate)).toISO()
+      : DateTime.now().plus({ years: 3 }).toISO();
     const hash = await hashPassword(note.password);
     const entity: NoteEntity = {
       id: uuid(),

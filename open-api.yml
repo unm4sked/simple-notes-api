@@ -100,7 +100,7 @@ paths:
       security:
       - password: []
   /notes/{id}/markdown:
-    post:
+    get:
       parameters:
       - name: "id"
         in: "path"
