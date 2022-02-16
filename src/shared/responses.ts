@@ -2,6 +2,9 @@ import { StatusCodes } from "http-status-codes";
 
 const headers = {
   "Content-Type": "application/json",
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Credentials": true,
+  "Access-Control-Allow-Methods": "POST,GET,OPTIONS,PATCH,DELETE",
 };
 
 interface APIError {
