@@ -52,4 +52,4 @@ functions:
 resources:
   - ${file(serverless/exports-s3-bucket.yml)}
   - ${file(serverless/notes-dynamodb.yml)}
-
+  - ${file(serverless/api-gateway-response.yml)}

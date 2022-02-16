@@ -12,3 +12,4 @@ events:
   - http:
       method: 'DELETE'
       path: /notes/{id}
+      cors: true

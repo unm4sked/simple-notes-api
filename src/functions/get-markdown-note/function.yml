@@ -19,3 +19,4 @@ events:
   - http:
       method: 'POST'
       path: /notes/{id}/markdown
+      cors: true

@@ -12,3 +12,4 @@ events:
   - http:
       method: 'PATCH'
       path: /notes/{id}
+      cors: true

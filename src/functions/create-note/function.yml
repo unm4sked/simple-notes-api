@@ -11,3 +11,4 @@ events:
   - http:
       method: 'POST'
       path: /notes
+      cors: true

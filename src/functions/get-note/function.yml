@@ -11,3 +11,4 @@ events:
   - http:
       method: 'GET'
       path: /notes/{id}
+      cors: true
