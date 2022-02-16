@@ -27,13 +27,15 @@ export class NotesRepository implements INotesRepository {
   }
 
   async getItems() {
+    const now = Math.trunc(DateTime.now().toMillis() / 1000);
+
     const { Items } = await this.client.send(
       new ScanCommand({
         TableName: this.tableName,
         ProjectionExpression: "id, createdAt, title",
         FilterExpression: "#ttl >= :now",
         ExpressionAttributeValues: {
-          ":now": { N: (DateTime.now().toMillis() / 1000).toString() },
+          ":now": { N: `${now}` },
         },
         ExpressionAttributeNames: {
           "#ttl": "ttl",
