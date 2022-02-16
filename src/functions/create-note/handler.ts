@@ -17,8 +17,6 @@ export const handler = wrapApiGatewayHandler(async (event: APIGatewayProxyEvent,
 
   const config = await initDefaultConfig();
 
-  return apiSuccess(StatusCodes.CREATED, payload);
-
   const service = new NotesService(
     new NotesRepository(new DynamoDBClient({ region: config.region }), config.ddbTableName),
     config,
