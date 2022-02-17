@@ -6,9 +6,9 @@
     "node": "v14"
   },
   "scripts": {
-    "dev": "AWS_PROFILE=kalicki SLS_DEBUG=* sls offline start --stage dev --httpPort 4040",
+    "dev": "AWS_PROFILE=note SLS_DEBUG=* sls offline start --stage dev --httpPort 4040",
     "format": "npx prettier --write ./src/",
-    "deploy": "npx serverless deploy --stage dev --aws-profile kalicki --region eu-west-1",
+    "deploy": "npx serverless deploy --stage dev --aws-profile note --region eu-west-1",
     "remove-dev": "npx serverless remove --stage dev --aws-profile node --region eu-west-1",
     "lint": "npx eslint -c eslint.json --ext .ts ./src/",
     "check-types": "npx tsc --noemit",

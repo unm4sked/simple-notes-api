@@ -5,7 +5,7 @@ info:
   context:
     name: "Lukasz Kalicki"
 servers:
-- url: "https://URL_AFTER_DEPLOY/{basePath}"
+- url: "https://gyprngsw2d.execute-api.eu-west-1.amazonaws.com/{basePath}"
   description: development
   variables:
     basePath:
